@@ -1,3 +1,7 @@
 from django.contrib import admin
+from baby.models import Baby
 
-# Register your models here.
+
+@admin.register(Baby)
+class BabyAdmin(admin.ModelAdmin):
+    pass

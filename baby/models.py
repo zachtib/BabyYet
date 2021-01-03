@@ -15,6 +15,6 @@ class BabyManager(models.Manager):
 class Baby(models.Model):
     born = models.BooleanField(default=False)
     name = models.CharField(max_length=30, blank=True)
-    born_on = models.DateTimeField(null=True, default=None)
+    born_on = models.DateTimeField(null=True, blank=True, default=None)
 
     objects = BabyManager()
