@@ -18,3 +18,9 @@ class Baby(models.Model):
     born_on = models.DateTimeField(null=True, blank=True, default=None)
 
     objects = BabyManager()
+
+    def __repr__(self):
+        return f'{self.name} ({self.id})'
+
+    class Meta:
+        verbose_name_plural = 'Babies'
