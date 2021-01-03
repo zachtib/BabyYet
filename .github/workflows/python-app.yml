@@ -35,3 +35,5 @@ jobs:
     - name: Run tests with coverage
       run: |
         coverage run manage.py test
+      env:
+        SECRET_KEY: github_ci_secret_key
