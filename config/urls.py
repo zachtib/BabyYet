@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from baby.views import home
+from baby.views import home, secret
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('secret/<str:secret_id>/', secret, name='secret'),
     path('', home),
 ]

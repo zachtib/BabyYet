@@ -4,8 +4,12 @@
 
 {% block content %}
     <div class="h-100 row align-items-center">
-      <div class="col" style="text-align: center;">
-          <span class="display-1">{{ answer }}</span>
-      </div>
+        <div class="col" style="text-align: center;">
+            <span class="display-1">{{ answer }}</span>
+
+            {% if due_date %}
+                <p class="lead">Due on {{ due_date }}</p>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
