@@ -19,7 +19,7 @@ class Baby(models.Model):
 
     objects = BabyManager()
 
-    def __repr__(self):
+    def __str__(self):
         return f'{self.name} ({self.id})'
 
     class Meta:
