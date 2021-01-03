@@ -143,8 +143,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # BabyYet specific configuration
 MOTHERS_NAME = os.environ.get('MOTHERS_NAME', 'Asia')
 
-try:
-    import django_heroku
-    django_heroku.settings(locals())
-except ImportError:
-    pass
+if 'CI' not in os.environ:
+    # We don't want to run this on CI
+    try:
+        import django_heroku
+        django_heroku.settings(locals())
+    except ImportError:
+        pass
