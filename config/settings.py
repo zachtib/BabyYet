@@ -66,8 +66,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,5 +146,5 @@ MOTHERS_NAME = os.environ.get('MOTHERS_NAME', 'Asia')
 try:
     import django_heroku
     django_heroku.settings(locals())
-except:
+except ImportError:
     pass
