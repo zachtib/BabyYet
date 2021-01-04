@@ -33,12 +33,12 @@ def api(request):
         raise Http404()
 
     baby = Baby.objects.default()
+    data = {
+        'born': baby.born,
+    }
     if baby.born:
-        return JsonResponse({
-            'born': True,
-        })
+        data['display'] = 'Yep.'
     else:
-        return JsonResponse({
-            'born': False,
-            'due_date': baby.due_date
-        })
+        data['display'] = 'Nope.'
+        data['due_date'] = baby.due_date
+    return JsonResponse(data)
