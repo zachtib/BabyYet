@@ -143,6 +143,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # BabyYet specific configuration
 MOTHERS_NAME = os.environ.get('MOTHERS_NAME', 'Asia')
 
+SHOW_BANNER = os.environ.get('SHOW_BANNER', '1') == '1'
+
 if 'CI' not in os.environ:
     # We don't want to run this on CI
     try:

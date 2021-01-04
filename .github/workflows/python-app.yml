@@ -37,3 +37,7 @@ jobs:
         coverage run manage.py test
       env:
         SECRET_KEY: github_ci_secret_key
+    - name: Upload Coverage
+      run: |
+        pip install codecov
+        codecov

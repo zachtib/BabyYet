@@ -25,3 +25,18 @@ class BabyTestCase(TestCase):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual('Yep.', response.context['answer'])
+
+    def test_api_nope(self):
+        Baby.objects.create(name='Gizmo', born=False)
+        response = self.client.get('/api/')
+        self.assertEqual(response.status_code, 200)
+        json = response.json()
+        self.assertEqual(json['born'], False)
+
+    def test_api_yep(self):
+        Baby.objects.create(name='Gremlin', born=True)
+        response = self.client.get('/api/')
+        self.assertEqual(response.status_code, 200)
+        json = response.json()
+        self.assertEqual(json['born'], True)
+
