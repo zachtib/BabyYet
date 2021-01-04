@@ -7,19 +7,16 @@ from baby.models import Baby
 
 def home(request):
     baby = Baby.objects.default()
+    context = {
+        'mother': settings.MOTHERS_NAME,
+        'show_banner': settings.SHOW_BANNER,
+    }
     if baby.born:
-        return render(request, 'baby/home.html', {
-            'mother': settings.MOTHERS_NAME,
-            'answer': 'Yep.',
-            'show_banner': settings.SHOW_BANNER,
-        })
+        context['answer'] = 'Yep.'
     else:
-        return render(request, 'baby/home.html', {
-            'mother': settings.MOTHERS_NAME,
-            'answer': 'Nope.',
-            'due_date': baby.due_date,
-            'show_banner': settings.SHOW_BANNER,
-        })
+        context['answer'] = 'Nope.'
+        context['due_date'] = baby.due_date
+    return render(request, 'baby/home.html', context)
 
 
 def secret(request, secret_id):
