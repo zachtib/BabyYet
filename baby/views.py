@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.http import Http404, JsonResponse, HttpRequest, HttpResponse
+from django.http import Http404, JsonResponse
 from django.shortcuts import render, get_object_or_404
 
 from baby.models import Baby
