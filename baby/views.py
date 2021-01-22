@@ -12,9 +12,9 @@ def home(request):
         'show_banner': settings.SHOW_BANNER,
     }
     if baby.born:
-        context['answer'] = 'Yep.'
+        context['answer'] = settings.YES_DISPLAY
     else:
-        context['answer'] = 'Nope.'
+        context['answer'] = settings.NO_DISPLAY
         context['due_date'] = baby.due_date
     return render(request, 'baby/home.html', context)
 
@@ -37,8 +37,8 @@ def api(request):
         'born': baby.born,
     }
     if baby.born:
-        data['display'] = 'Yep.'
+        data['display'] = settings.YES_DISPLAY
     else:
-        data['display'] = 'Nope.'
+        data['display'] = settings.NO_DISPLAY
         data['due_date'] = baby.due_date
     return JsonResponse(data)
