@@ -1,4 +1,7 @@
+from django.contrib.auth.models import User
+from django.test import Client
 from django.test import TestCase
+
 from baby.models import Baby
 
 
@@ -40,3 +43,35 @@ class BabyTestCase(TestCase):
         json = response.json()
         self.assertEqual(json['born'], True)
 
+    def test_signed_in_as_admin(self):
+        user = User.objects.create(username='teddymog', is_staff=True)
+        user.set_password('12345')
+        user.save()
+
+        gizmo = Baby.objects.create(name='Gizmo', born=False)
+        secret_link = gizmo.get_absolute_url()
+
+        self.client.login(username='teddymog', password='12345')
+
+        response = self.client.get('/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual('Nope.', response.context['answer'])
+        self.assertTrue(response.context['show_admin_link'])
+        self.assertEqual(secret_link, response.context['admin_link'])
+
+    def test_signed_in_as_regular_user(self):
+        user = User.objects.create(username='bashful')
+        user.set_password('w00f')
+        user.save()
+
+        gizmo = Baby.objects.create(name='Gizmo', born=False)
+
+        self.client.login(username='bashful', password='w00f')
+
+        response = self.client.get('/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual('Nope.', response.context['answer'])
+        self.assertFalse(response.context['show_admin_link'])
+        self.assertTrue('admin_link' not in response.context.keys())

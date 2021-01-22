@@ -10,12 +10,17 @@ def home(request):
     context = {
         'mother': settings.MOTHERS_NAME,
         'show_banner': settings.SHOW_BANNER,
+        'show_admin_link': False
     }
     if baby.born:
         context['answer'] = settings.YES_DISPLAY
     else:
         context['answer'] = settings.NO_DISPLAY
         context['due_date'] = baby.due_date
+    if request.user.is_authenticated and request.user.is_staff:
+        context['show_admin_link'] = True
+        context['admin_link'] = baby.get_absolute_url()
+
     return render(request, 'baby/home.html', context)
 
 
