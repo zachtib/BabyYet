@@ -23,6 +23,9 @@
             {% if due_date %}
                 <p class="lead">Due on {{ due_date }}</p>
             {% endif %}
+            {% if time %}
+                <p class="lead">{{ baby_name }} was born at {{ time }} on {{ date }}</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', api),
     path('secret/<str:secret_id>/', secret, name='secret'),
-    path('', home),
+    path('', home, name='home'  ),
 ]

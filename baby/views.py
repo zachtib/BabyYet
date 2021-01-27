@@ -1,7 +1,8 @@
 from django.conf import settings
-from django.http import Http404, JsonResponse
+from django.http import Http404, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
+from baby.forms import UpdateBabyForm
 from baby.models import Baby
 
 
@@ -14,6 +15,10 @@ def home(request):
     }
     if baby.born:
         context['answer'] = settings.YES_DISPLAY
+        context['baby_name'] = baby.name
+        if baby.born_on is not None:
+            context['time'] = baby.born_on.time()
+            context['date'] = baby.born_on.date()
     else:
         context['answer'] = settings.NO_DISPLAY
         context['due_date'] = baby.due_date
@@ -26,10 +31,17 @@ def home(request):
 
 def secret(request, secret_id):
     baby = get_object_or_404(Baby, secret_id=secret_id)
-
-    return render(request, 'baby/home.html', {
-        'mother': settings.MOTHERS_NAME,
-        'answer': f'Secret page for {baby.name}',
+    if request.method == 'POST':
+        form = UpdateBabyForm(data=request.POST, instance=baby)
+        if form.is_valid():
+            form.save()
+            from django.shortcuts import redirect
+            return redirect('home')
+    else:
+        form = UpdateBabyForm(instance=baby)
+    return render(request, 'baby/secret.html', {
+        'baby_name': baby.name,
+        'form': form,
     })
 
 
