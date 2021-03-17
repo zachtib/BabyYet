@@ -14,6 +14,12 @@ def home(request):
     }
     if baby.born:
         context['answer'] = settings.YES_DISPLAY
+        if baby.name is not None and baby.name != '':
+            context['name'] = baby.name
+        if baby.born_on is not None:
+            context['timestamp'] = baby.born_on
+        if baby.extra is not None:
+            context['extra'] = baby.extra
     else:
         context['answer'] = settings.NO_DISPLAY
         context['due_date'] = baby.due_date

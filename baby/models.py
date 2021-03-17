@@ -19,6 +19,7 @@ class Baby(models.Model):
     name = models.CharField(max_length=30, blank=True)
     due_date = models.DateField(null=True, blank=True, default=None)
     born_on = models.DateTimeField(null=True, blank=True, default=None)
+    extra = models.TextField(null=True, blank=True, default=None)
     secret_id = models.UUIDField(default=uuid.uuid4)
 
     objects = BabyManager()

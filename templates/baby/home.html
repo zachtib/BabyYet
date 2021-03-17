@@ -23,6 +23,16 @@
             {% if due_date %}
                 <p class="lead">Due on {{ due_date }}</p>
             {% endif %}
+            {% if name %}
+                <p class="display-4">{{ name }}</p>
+            {% endif %}
+            {% if timestamp %}
+                <p class="lead">Born {{ timestamp }}</p>
+            {% endif %}
+            {% if extra %}
+                <p class="lead">{{ extra }}</p>
+            {% endif %}
+
         </div>
     </div>
 {% endblock %}
