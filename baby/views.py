@@ -20,23 +20,16 @@ def home(request):
             context['timestamp'] = baby.born_on
         if baby.extra is not None:
             context['extra'] = baby.extra
+        if baby.announce_url is not None:
+            context['url'] = baby.announce_url
     else:
         context['answer'] = settings.NO_DISPLAY
         context['due_date'] = baby.due_date
     if request.user.is_authenticated and request.user.is_staff:
         context['show_admin_link'] = True
-        context['admin_link'] = baby.get_absolute_url()
+        context['admin_link'] = f"/admin/baby/baby/{baby.id}/change/"
 
     return render(request, 'baby/home.html', context)
-
-
-def secret(request, secret_id):
-    baby = get_object_or_404(Baby, secret_id=secret_id)
-
-    return render(request, 'baby/home.html', {
-        'mother': settings.MOTHERS_NAME,
-        'answer': f'Secret page for {baby.name}',
-    })
 
 
 def api(request):

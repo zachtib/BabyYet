@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User
-from django.test import Client
 from django.test import TestCase
 
 from baby.models import Baby
@@ -48,8 +47,7 @@ class BabyTestCase(TestCase):
         user.set_password('12345')
         user.save()
 
-        gizmo = Baby.objects.create(name='Gizmo', born=False)
-        secret_link = gizmo.get_absolute_url()
+        Baby.objects.create(name='Gizmo', born=False)
 
         self.client.login(username='teddymog', password='12345')
 
@@ -58,7 +56,6 @@ class BabyTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual('Nope.', response.context['answer'])
         self.assertTrue(response.context['show_admin_link'])
-        self.assertEqual(secret_link, response.context['admin_link'])
 
     def test_signed_in_as_regular_user(self):
         user = User.objects.create(username='bashful')

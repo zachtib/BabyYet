@@ -20,13 +20,9 @@ class Baby(models.Model):
     due_date = models.DateField(null=True, blank=True, default=None)
     born_on = models.DateTimeField(null=True, blank=True, default=None)
     extra = models.TextField(null=True, blank=True, default=None)
-    secret_id = models.UUIDField(default=uuid.uuid4)
+    announce_url = models.URLField(null=True, blank=True, default=None)
 
     objects = BabyManager()
-
-    def get_absolute_url(self):
-        from django.shortcuts import reverse
-        return reverse('secret', args=[self.secret_id])
 
     def __str__(self):
         return f'{self.name} ({self.id})'

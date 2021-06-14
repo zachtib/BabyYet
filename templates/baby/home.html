@@ -24,6 +24,7 @@
                 <p class="lead">Due on {{ due_date }}</p>
             {% endif %}
             {% if name %}
+                <p class="h3 mt-5">Hello,</p>
                 <p class="display-4">{{ name }}</p>
             {% endif %}
             {% if timestamp %}
@@ -31,6 +32,9 @@
             {% endif %}
             {% if extra %}
                 <p class="lead">{{ extra }}</p>
+            {% endif %}
+            {% if url %}
+                <p class="lead"><a href="{{ url }}">Read more.</a></p>
             {% endif %}
 
         </div>
